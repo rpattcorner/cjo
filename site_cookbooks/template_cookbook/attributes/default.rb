@@ -1,0 +1,1 @@
+default["tmp_directory"] = "/tmp/chef_tmp"
