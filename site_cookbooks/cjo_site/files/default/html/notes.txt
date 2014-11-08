@@ -1,0 +1,4 @@
+Notes:
+
+font size base: 16 pixels = 1 em
+line height base: 24 pixels = 1.5 em
