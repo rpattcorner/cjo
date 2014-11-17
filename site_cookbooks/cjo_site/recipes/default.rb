@@ -5,6 +5,9 @@ cookbook_file "/etc/apache2/sites-available/cabinjohnorganizing.com" do
         action :create
 end
 
+remote_directory "/opt/content/cabinjohnorganizing" do
+        source "html"
+end
 
 apache_site "cabinjohnorganizing.com" do
   enable true
