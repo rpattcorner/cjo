@@ -8,7 +8,7 @@
                         "iam-role": "cjo_node_role",
 
                         "static_ip": {
-                                "ip": "54.84.246.178",
+                                "ip": "<%= $target_ip %>",
                                 "assign_ip": true
                         },
                         "storage": [
@@ -17,7 +17,7 @@
                                 }
                         ],
                         "run_list": [
-                                "recipe[apache2]"
+                                "recipe[cjo_site]"
                         ],
                         "size": "t2.micro",
                         "ingress_rules": [
