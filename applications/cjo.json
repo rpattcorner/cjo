@@ -19,7 +19,7 @@
                 {
                         "name": "webserver",
                         "ssh_user":"ubuntu",
-                        "ami-id":"ami-3aa73452",
+                        "ami-id":"ami-12ab017a",
                         "iam-role": "cjo_node_role",
 
                         "static_ip": {
