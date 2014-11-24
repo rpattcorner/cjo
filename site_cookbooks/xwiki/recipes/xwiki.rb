@@ -1,4 +1,6 @@
 chef_gem "aws-sdk"
+include_recipe 'java'
+
 
 
 powershell_script "Allow 8080 traffic" do
