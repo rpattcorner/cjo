@@ -50,34 +50,37 @@
                                 }
                         ]
                 },
-                {
-                        "name": "appserver",
-                        "platform": "windows",
-                        "ssh_user":"Administrator",
-                        "ami-id":"ami-14c95b7c",
-                        "iam-role": "cjo_node_role",
-
-                        "static_ip": {
-                                "ip": "<%= $target_ip_win %>",
-                                "assign_ip": true
+               {
+                    "name": "appserver",
+                    "iam-role": "cjo_node_role",
+                    "platform": "windows",
+                    "ami-id": "ami-fc50dd94",
+                    "size": "t2.micro",
+                    "storage": [],
+                                "static_ip": {
+                                        "ip": "<%= $target_ip_win %>",
+                                        "assign_ip": true
+                                },
+                    "ingress_rules": [
+                        {
+                            "port": 3389,
+                            "hosts": [
+                                "23.30.31.61/32",
+                                "173.66.215.21/32",
+                                "96.241.126.198/32"
+                            ]
                         },
-                        "storage": [
-                                {
-                                        "size": 15
-                                }
-                        ],
-                        "run_list": [
-                                "recipe[xwiki]"
-                        ],
-                        "size": "t2.micro",
-                        "ingress_rules": [
-                                {
-                                        "port": 8080,
-                                        "hosts": [
-                                                "96.241.126.198/0"
-                                        ]
-                                }
-                        ]
+                        {
+                               "port": 8080,
+                               "hosts": [
+                                   "96.241.126.198/0"
+                               ]
+                        }
+                    ],
+                   "run_list": [
+                             "recipe[xwiki::xwiki]"
+                   ],
+                    "dependencies": []
                 }
         ],
         "admins": [
