@@ -1,10 +1,6 @@
 include_recipe "apache2"
 include_recipe "php"
 include_recipe "apache2::mod_php5"
-include_recipe "apache2::mod_proxy"
-include_recipe "apache2::mod_proxy_balancer"
-include_recipe "apache2::mod_proxy_http"
-include_recipe "apache2::mod_rewrite"
 include_recipe "awscli"
 
 cookbook_file "/etc/apache2/sites-available/cabinjohnorganizing.com.conf" do
@@ -12,9 +8,21 @@ cookbook_file "/etc/apache2/sites-available/cabinjohnorganizing.com.conf" do
         action :create
 end
 
+remote_directory "/opt/content/cabinjohnorganizing" do
+        source "html"
+end
+
+apache_site "cabinjohnorganizing.com" do
+  enable true
+end
+
 cookbook_file "/etc/apache2/sites-available/andredsweald.org.conf" do
         source "/sites-available/andredsweald.org.conf"
         action :create
+end
+
+apache_site "andredsweald.org" do
+  enable true
 end
 
 cookbook_file "/etc/apache2/sites-available/dorsetwest.com.conf" do
@@ -22,19 +30,6 @@ cookbook_file "/etc/apache2/sites-available/dorsetwest.com.conf" do
         action :create
 end
 
-remote_directory "/opt/content/cabinjohnorganizing" do
-        source "html"
-end
-=begin
-package "libapache2-mod-php5" do
-    action :install
-end
-
-%w[ proxy_http proxy_balancer proxy rewrite php5 ].each do |module|
-apache_module module do
-  enable true
-end
-=end
 bash "copy dorsetwest image" do
         user "root"
         code <<-EOH
@@ -44,12 +39,22 @@ bash "copy dorsetwest image" do
         not_if do ::File.exists?("/opt/content/dorsetwest") end
 end
 
-apache_site "cabinjohnorganizing.com" do
-  enable true
-end
-apache_site "andredsweald.org" do
-  enable true
-end
 apache_site "dorsetwest.com" do
   enable true
 end
+
+=begin
+apache_site "default" do
+  enable true
+end
+
+file '/var/www/index.html' do
+  action :delete
+end
+
+file '/var/www/index.php' do
+  content <<-EOH
+<?php phpinfo(); ?>
+  EOH
+end
+=end
