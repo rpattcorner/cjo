@@ -1,7 +1,10 @@
 include_recipe "apache2"
 include_recipe "php"
 include_recipe "apache2::mod_php5"
+include_recipe "apache2::mod_proxy"
+include_recipe "apache2::mod_proxy_http"
 include_recipe "awscli"
+
 
 cookbook_file "/etc/apache2/sites-available/cabinjohnorganizing.com.conf" do
         source "/sites-available/cabinjohnorganizing.com.conf"
