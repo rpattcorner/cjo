@@ -1,0 +1,5 @@
+add site to .caprc and source
+clone site
+cap-upload-chef-artifacts
+cap-admin-manager -a -u rpc@dorsetwest.com
+cap-aws-setup -l -i
