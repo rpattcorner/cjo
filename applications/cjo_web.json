@@ -19,7 +19,7 @@
                 {
                         "name": "webserver",
                         "ssh_user":"ubuntu",
-                        <%= CAP::Config.include("/win2k12-ami.json") %>,
+                        <%= CAP::Config.include("ubuntu_ami.json") %>,
                         "iam-role": "cjo_node_role",
 
                         "static_ip": {
