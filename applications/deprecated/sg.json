@@ -1,0 +1,82 @@
+		{
+			"name":"lb_secgroup",
+<% if !$vpc_id then %>
+			"vpc_name": "vpc",
+<% else %>
+			"vpc_id": "<%= $vpc_id %>",
+<% end %>
+			"rules": [
+				{
+					"port":80,
+					"sgs": [
+						"lnxapps_lb_secgroup",
+						"winapps_lb_secgroup"
+					]
+				}
+			]
+		},
+		{
+			"name":"db_secgroup",
+<% if !$vpc_id then %>
+			"vpc_name": "vpc",
+<% else %>
+			"vpc_id": "<%= $vpc_id %>",
+<% end %>
+			"rules": [
+				{
+					"port":3306,
+					"sgs": [
+						"lnxapps_secgroup",
+						"winapps_lb_secgroup"
+					]
+				}
+			]
+		},
+		{
+			"name":"lnxapps_lb_secgroup",
+<% if !$vpc_id then %>
+			"vpc_name": "vpc",
+<% else %>
+			"vpc_id": "<%= $vpc_id %>",
+<% end %>
+			"rules": [
+				{
+					"port":80,
+					"sgs": [
+						"proxy_secgroup"
+					]
+				}
+			]
+		},
+		{
+			"name":"winapps_secgroup",
+<% if !$vpc_id then %>
+			"vpc_name": "vpc",
+<% else %>
+			"vpc_id": "<%= $vpc_id %>",
+<% end %>
+			"rules": [
+				{
+					"port-range":"0-65535",
+					"sgs": [
+						"lb_secgroup"
+					]
+				}
+			]
+		},
+		{
+			"name":"lnxapps_secgroup",
+<% if !$vpc_id then %>
+			"vpc_name": "vpc",
+<% else %>
+			"vpc_id": "<%= $vpc_id %>",
+<% end %>
+			"rules": [
+				{
+					"port-range":"0-65535",
+					"sgs": [
+						"lb_secgroup"
+					]
+				}
+			]
+		}
