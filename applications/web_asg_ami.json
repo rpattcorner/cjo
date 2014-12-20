@@ -1,0 +1,76 @@
+<%
+
+
+        if $vpc_id
+                if !$nat_host_id or !$subnet_public_1 or !$subnet_private_1
+                        raise "If deploying into an existing VPC, you must specify a nat_host_id and at least one pair of subnets (subnet_public_1/subnet_private_1)"
+                end
+                $nat_ssh_user="root" if !$nat_ssh_user
+        end
+
+        $admins = []
+        ENV['ADMINS'].split(/\s+/).each { |admin|
+                $admins << %Q(\t\t{\n\t\t\t"name":"#{admin}",\n\t\t\t"email":"#{admin}"\n\t\t})
+        }
+%>{
+        "appname": "cjoasg",
+        "server_pools": [
+                {
+                        "name": "cjo-pool",
+                        "ssh_user": "ubuntu",
+                        "min-size": 1,
+                        "max-size": 1,
+                        "wait_for_nodes":1,
+                         "run_list": [
+                                "recipe[cjo_site]"
+                        ],
+                    "static_ip": {
+                                "ip": "<%= $target_ip_lin %>",
+                                "assign_ip": true
+                                },
+                                "zones": [
+                                        "us-east-1c",
+                                        "us-east-1d"
+                                ],
+
+                    "add_firewall_rules": [
+                        {
+                            "rule_name":"cjo-portal_secgroup"
+                        }
+                    ],
+
+                    "basis": {
+                            "launch-config": {
+                                    "name": "cjo",
+                                    <%= CAP::Config.include("webportal_ami.json") %>,
+                                    "size": "t2.micro",
+                                    "iam-role": "cjo_node_role"
+
+                            }
+                    }
+                }
+        ],
+
+       "firewall_rules": [
+            {
+                "name": "cjo-portal_secgroup",
+                "rules": [
+                    {
+                        "port": 443,
+                        "hosts": [
+                            "0.0.0.0/0"
+                        ]
+                    },
+                    {
+                        "port": 80,
+                        "hosts": [
+                            "0.0.0.0/0"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "admins": [
+            <%= $admins.join(",\n") %>
+        ]
+}
