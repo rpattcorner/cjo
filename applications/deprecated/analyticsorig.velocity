@@ -1,0 +1,57 @@
+#set($analyticsDoc = $xwiki.getDocument('XWiki.GoogleAnalyticsConfig'))
+#set($analyticsObj = $analyticsDoc.getObject('XWiki.GoogleAnalyticsCode'))
+#set($method = $analyticsObj.getProperty('method').value)
+#set($accounts = [])
+#if("$!analyticsObj" != "" && "$!analyticsObj.account" != "")
+#foreach($aObj in $analyticsObj.account.split(' '))
+#if("$!aObj" != "")
+#set($discard = $accounts.add($aObj))##
+#end 
+#end
+#end
+#if($accounts.size() > 0)
+#if($method == 'universal')
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+#foreach($account in $accounts)
+#set($accountName = '')
+#if($foreach.index > 0)
+#set($accountName = 't' + $foreach.index)
+  ga('create', '$account', {'name': '$accountName'});
+  ga('${accountName}.send', 'pageview');
+#else
+  ga('create', '$account');
+  ga('send', 'pageview');
+#end
+#end
+#else
+  var _gaq = _gaq || [];
+#foreach($account in $accounts)
+#set($analyticsPrefix = '')
+#if($foreach.index > 0)
+#set($analyticsPrefix = 't' + $foreach.index + '.')
+#end
+  _gaq.push(['${analyticsPrefix}_setAccount', '$account']);
+  _gaq.push(['${analyticsPrefix}_trackPageview']);
+#end
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+#end
+#end
+
+
+
+
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
