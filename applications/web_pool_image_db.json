@@ -15,12 +15,12 @@
         ],
 
        "firewall_rules": [
-           <%= CAP::Config.include("components/web_pool_image.json") %>
+            <%= CAP::Config.include("components/firewall_rules.json") %>
         ],
 
         "databases": [
-            <%= CAP::Config.include("components/firewall_rules.json") %>
-        ],
+            <%= CAP::Config.include("components/databases.json") %>
+        ],a
         "admins": [
             <%= $admins.join(",\n") %>
         ]
