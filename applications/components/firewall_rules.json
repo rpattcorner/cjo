@@ -1,0 +1,56 @@
+
+{
+"name":"database_secgroup",
+"vpc_id": "<%= ENV['VPCID'] %>",
+
+    "rules": [
+        {
+            "port":3306,
+            "sgs": [
+                "cjo-portal_secgroup"
+            ]
+        }
+    ]
+},
+
+
+{
+"name": "cjo-portal_secgroup",
+"vpc_id": "<%= ENV['VPCID'] %>",
+"rules": [
+        {
+            "port": 443,
+            "hosts": [
+                "0.0.0.0/0"
+            ]
+        },
+        {
+            "port": 80,
+            "hosts": [
+                "0.0.0.0/0"
+            ]
+        }
+    ]
+},
+
+{
+"name": "cjo-appserver_secgroup",
+"vpc_id": "<%= ENV['VPCID'] %>",
+"rules": [
+        {
+            "port": 8080,
+            "sgs": [
+                "cjo-portal_secgroup"
+            ],
+             "hosts": [
+                "96.241.126.198/32"
+            ]           
+        },
+        {
+            "port": 3389,
+            "hosts": [
+                "96.241.126.198/32"
+            ]
+        }
+    ]
+}

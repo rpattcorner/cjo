@@ -1,0 +1,27 @@
+<%
+
+
+    # This deploy targets the VPC of the CAP master using env variable
+    # needed: windows launch in vpc or entry there
+
+        $admins = []
+        ENV['ADMINS'].split(/\s+/).each { |admin|
+                $admins << %Q(\t\t{\n\t\t\t"name":"#{admin}",\n\t\t\t"email":"#{admin}"\n\t\t})
+        }
+%>{
+        "appname": "cjoasg",
+        "server_pools": [
+            <%= CAP::Config.include("components/web_pool_image.json") %>
+        ],
+
+       "firewall_rules": [
+
+        ],
+
+        "databases": [
+
+        ],
+        "admins": [
+            <%= $admins.join(",\n") %>
+        ]
+}

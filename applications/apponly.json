@@ -1,0 +1,25 @@
+<%
+
+#windows only
+
+        $admins = []
+        ENV['ADMINS'].split(/\s+/).each { |admin|
+                $admins << %Q(\t\t{\n\t\t\t"name":"#{admin}",\n\t\t\t"email":"#{admin}"\n\t\t})
+        }
+%>{
+        "appname": "cjoapponly",
+        "servers": [
+            <%= CAP::Config.include("components/appserver.json") %>
+        ],
+
+       "firewall_rules": [
+            <%= CAP::Config.include("components/firewall_rules.json") %>
+        ],
+
+        "databases": [
+
+        ],
+        "admins": [
+            <%= $admins.join(",\n") %>
+        ]
+}

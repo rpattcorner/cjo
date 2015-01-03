@@ -1,0 +1,24 @@
+{
+        "name": "cjo-db",
+        "engine": "mysql",
+        "creation_style": "existing_snapshot",
+        "identifier": "<%=$dbid%>",
+        "multi-az-on-deploy": false,
+        "size": "db.t2.micro",
+        "storage": 5,
+        "password": "<%=$dbpw%>",
+        "publicly_accessible" : false,
+        "vpc": {
+            "vpc_id": "<%= ENV['VPCID'] %>",
+            "subnets" : [
+                {"subnet_id": "<%= ENV['TARGET_PRIVATE_SUBNET_1'] %>"},
+                {"subnet_id": "<%= ENV['TARGET_PRIVATE_SUBNET_2'] %>"}
+            ]
+
+        },
+        "add_firewall_rules": [
+            {
+            "rule_name":"database_secgroup"
+            }
+        ]
+}

@@ -1,0 +1,34 @@
+{
+        "name": "webserver",
+        "ssh_user":"ubuntu",
+        <%= CAP::Config.include("../amis/ubuntu_ami.json") %>,
+        "iam-role": "cjo_node_role",
+
+        "static_ip": {
+                "ip": "<%= $target_ip_lin %>",
+                "assign_ip": true
+        },
+        "storage": [
+                {
+                        "size": 5
+                }
+        ],
+        "run_list": [
+                "recipe[cjo_site]"
+        ],
+        "size": "t2.micro",
+        "ingress_rules": [
+                {
+                        "port": 80,
+                        "hosts": [
+                                "0.0.0.0/0"
+                        ]
+                },
+                {
+                        "port": 443,
+                        "hosts": [
+                                "0.0.0.0/0"
+                        ]
+                }
+        ]
+}

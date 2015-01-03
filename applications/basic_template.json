@@ -1,0 +1,23 @@
+<%
+# application container framework
+        $admins = []
+        ENV['ADMINS'].split(/\s+/).each { |admin|
+                $admins << %Q(\t\t{\n\t\t\t"name":"#{admin}",\n\t\t\t"email":"#{admin}"\n\t\t})
+        }
+%>{
+        "appname": "someapp",
+        "server_pools": [
+ 
+        ],
+
+       "firewall_rules": [
+
+        ],
+
+        "databases": [
+
+        ],
+        "admins": [
+            <%= $admins.join(",\n") %>
+        ]
+}

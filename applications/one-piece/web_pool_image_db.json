@@ -2,7 +2,7 @@
 
 
     # This deploy targets the VPC of the CAP master using env variable
-    # needed: db in template, windows launch in vpc or entry there
+    # needed: windows launch in vpc or entry there
 
         $admins = []
         ENV['ADMINS'].split(/\s+/).each { |admin|
@@ -18,7 +18,7 @@
                         "max-size": 1,
                         "wait_for_nodes":1,
                          "run_list": [
-                                "recipe[cjo_site]"
+                                "recipe[cjo_site]" 
                         ],
                     "static_ip": {
                                 "ip": "<%= $target_ip_lin %>",
