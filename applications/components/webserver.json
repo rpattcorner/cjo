@@ -1,7 +1,7 @@
 {
         "name": "webserver",
         "ssh_user":"ubuntu",
-        <%= CAP::Config.include("../amis/ubuntu_ami.json") %>,
+        <%= CAP::Config.include("amis/ubuntu_ami.json") %>,
         "iam-role": "cjo_node_role",
 
         "static_ip": {

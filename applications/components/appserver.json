@@ -2,7 +2,7 @@
         "name": "windows",
         "iam-role": "cjo_node_role",
         "platform": "windows",
-        <%= CAP::Config.include("../amis/windows_ami.json") %>,
+        <%= CAP::Config.include("amis/windows_ami.json") %>,
         "size": "t2.micro",
         "storage": [],
                 "static_ip": {

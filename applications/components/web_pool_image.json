@@ -41,7 +41,7 @@
     "basis": {
             "launch-config": {
                     "name": "cjo",
-                    <%= CAP::Config.include("../amis/webportal_ami.json") %>,
+                    <%= CAP::Config.include("amis/webportal_ami.json") %>,
                     "size": "t2.micro",
                     "iam-role": "cjo_node_role"
 

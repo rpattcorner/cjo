@@ -7,7 +7,7 @@
         {
             "port":3306,
             "sgs": [
-                "cjo-portal_secgroup"
+                "cjo_portal_secgroup"
             ]
         }
     ]
@@ -15,7 +15,7 @@
 
 
 {
-"name": "cjo-portal_secgroup",
+"name": "cjo_portal_secgroup",
 "vpc_id": "<%= ENV['VPCID'] %>",
 "rules": [
         {
@@ -34,23 +34,33 @@
 },
 
 {
-"name": "cjo-appserver_secgroup",
+"name": "cjo_admin_secgroup",
+"vpc_id": "<%= ENV['VPCID'] %>",
+"rules": [
+        {
+             "hosts": [
+                "96.241.126.198/32"
+            ]           
+        }
+    ]
+},
+
+{
+"name": "cjo_appserver_secgroup",
 "vpc_id": "<%= ENV['VPCID'] %>",
 "rules": [
         {
             "port": 8080,
             "sgs": [
-                "cjo-portal_secgroup"
-            ],
-             "hosts": [
-                "96.241.126.198/32"
-            ]           
+                "cjo_portal_secgroup",
+                "cjo_admin_secgroup"
+            ]       
         },
         {
             "port": 3389,
-            "hosts": [
-                "96.241.126.198/32"
-            ]
+            "sgs": [
+                "cjo_admin_secgroup"
+            ]    
         }
     ]
 }
