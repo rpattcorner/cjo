@@ -18,7 +18,7 @@
 
     "add_firewall_rules": [
         {
-            "rule_name":"cjo-portal_secgroup"
+            "rule_name":"cjo_portal_secgroup"
         }
     ],
 
