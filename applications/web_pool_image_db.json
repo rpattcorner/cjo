@@ -19,7 +19,7 @@
         ],
 
         "databases": [
-
+            <%= CAP::Config.include("components/databases.json") %>
         ],
         "admins": [
             <%= $admins.join(",\n") %>
