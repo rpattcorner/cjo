@@ -75,9 +75,10 @@ ul.nav {
 }
 
 li {
-	padding-left: 20px;
+	//padding-left: 20px;
 	font-size: 1em;
-	background: url(trisk50.jpg) no-repeat 0 3px;
+	list-style-type: square;
+	//background: url(trisk50.jpg) no-repeat 0 3px;
 }
 
 .vcard {
