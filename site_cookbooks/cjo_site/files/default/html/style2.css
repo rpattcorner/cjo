@@ -8,7 +8,7 @@ html>body {
 }
 
 
-ul {
+ul.fixed {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -87,4 +87,20 @@ h2 {
 	margin-top: .5em;
 	margin-bottom: .5em;
 	margin-right: 8em;
+}
+
+dl {
+	font-size: 1em;
+	line-height: 1.5em;
+	margin-right: 8em;
+	margin-bottom: 1.5em;
+}
+
+dt {
+	font-weight: bold;
+	float: left;
+}
+
+dd {
+	padding-left: 1.5em;
 }
